@@ -5,7 +5,7 @@ Game* game = nullptr;
 int main(int argc, const char* argv[]) {
 
     game = new Game();
-    game->init("BirchEnginde", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+    game->init("BirchEnginde", 800, 600, false);
 
     while (game->running()) {
         game->handleEvents();

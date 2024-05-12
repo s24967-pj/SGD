@@ -2,6 +2,7 @@
 #define game_h
 
 #include <SDL.h>
+#include <SDL_image.h> 
 #undef main // Brak redefinicji f main, aby usun¹æ problem z odpaleniem okna na windowsie
 #include <iostream>
 
@@ -11,7 +12,7 @@ public:
     Game();
     ~Game();
 
-    void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+    void init(const char* title, int width, int height, bool fullscreen);
     void handleEvents();
     void update();
     void render();
