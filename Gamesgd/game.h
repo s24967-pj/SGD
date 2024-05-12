@@ -3,10 +3,11 @@
 
 #include <SDL.h>
 #include <SDL_image.h> 
-#undef main // Brak redefinicji f main, aby usun¹æ problem z odpaleniem okna na windowsie
+#undef main // Brak redefinicji f main, aby usunac problem z odpaleniem okna na windowsie
 #include <iostream>
 
-class Game {
+class Game 
+{
 
 public:
     Game();
@@ -18,13 +19,18 @@ public:
     void render();
     void clean();
 
-    bool running() { return isRunning; }
+    static SDL_Renderer *renderer;
+
+
+    bool running() 
+    { 
+        return isRunning; 
+    }
 
 private:
     int cnt = 0;
     bool isRunning;
     SDL_Window* window;
-    SDL_Renderer* renderer;
 
 };
 #endif // ! gra_hpp#pragma once

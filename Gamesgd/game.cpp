@@ -1,7 +1,13 @@
 #include "game.h"
+#include "TextureControl.h"
+#include "Map.h";
 
 SDL_Texture* playerTexture;
 SDL_Rect srcR, destR;
+
+Map* map;
+SDL_Renderer* Game::renderer = nullptr;
+
 
 Game::Game()
 {}
@@ -33,16 +39,16 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
-    SDL_Surface* tmpSurface = IMG_Load("assets/hamster.png");
-    playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-    SDL_FreeSurface(tmpSurface);
+    playerTexture = TextureControl::LoadTexture("assets/hamster.png");
+    map = new Map();
 }
 
 void Game::handleEvents()
 {
     SDL_Event event;
     SDL_PollEvent(&event);
-    switch (event.type) {
+    switch (event.type) 
+    {
     case SDL_QUIT:
         isRunning = false;
         break;
@@ -55,17 +61,17 @@ void Game::handleEvents()
 void Game::update()
 {
     cnt++;
-    destR.h = 150; //wysokoœæ chomika
-    destR.w = 150; //szerokoœæ chomika
+    destR.h = 150; //wysokosc chomika
+    destR.w = 150; //szerokosc chomika
     destR.x = cnt; //umieszczenie chomika na osi x
 
-    std::cout << cnt << std::endl;
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
     //dodajemy tekstury, wyzsze background, nizsze blizej
+    map->DrawMap();
     SDL_RenderCopy(renderer, playerTexture, NULL, &destR);
     SDL_RenderPresent(renderer);
 }
