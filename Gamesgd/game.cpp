@@ -1,10 +1,12 @@
 #include "game.h"
 #include "TextureControl.h"
-#include "Map.h";
+#include "Map.h"
+#include "Object.h"
+
 
 SDL_Texture* playerTexture;
 SDL_Rect srcR, destR;
-
+Object* hamster;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -39,7 +41,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
-    playerTexture = TextureControl::LoadTexture("assets/hamster.png");
+    hamster = new Object("assets/hamster.png", renderer);
     map = new Map();
 }
 
@@ -60,10 +62,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    cnt++;
-    destR.h = 150; //wysokosc chomika
-    destR.w = 150; //szerokosc chomika
-    destR.x = cnt; //umieszczenie chomika na osi x
+    hamster->Update();
 
 }
 
@@ -72,7 +71,7 @@ void Game::render()
     SDL_RenderClear(renderer);
     //dodajemy tekstury, wyzsze background, nizsze blizej
     map->DrawMap();
-    SDL_RenderCopy(renderer, playerTexture, NULL, &destR);
+    hamster->Render();
     SDL_RenderPresent(renderer);
 }
 
