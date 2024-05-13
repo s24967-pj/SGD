@@ -63,7 +63,6 @@ void Game::handleEvents()
 void Game::update()
 {
     hamster->Update();
-
 }
 
 void Game::render()
