@@ -2,6 +2,8 @@
 #include "TextureControl.h"
 #include "Map.h"
 #include "Object.h"
+#include "Entity.h"
+#include "Component.h"
 
 
 SDL_Texture* playerTexture;
@@ -9,6 +11,9 @@ SDL_Rect srcR, destR;
 Object* hamster;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 
 Game::Game()
@@ -43,6 +48,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
     hamster = new Object("assets/hamster.png", renderer);
     map = new Map();
+
+    newPlayer.addComponent<PositionComponent>();
+
 }
 
 void Game::handleEvents()
@@ -63,6 +71,10 @@ void Game::handleEvents()
 void Game::update()
 {
     hamster->Update();
+    manager.update();
+
+    std::cout << newPlayer.getComponent<PositionComponent>().x() << ", " <<
+        newPlayer.addComponent<PositionComponent>().y() << std::endl;
 }
 
 void Game::render()
