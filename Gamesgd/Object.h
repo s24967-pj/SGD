@@ -4,11 +4,14 @@
 class Object 
 {
 public:
-	Object(const char* texturesheet, SDL_Renderer* rend);
+	Object(const char* texturesheet, SDL_Renderer* rend, int x, int y);
 	~Object();
 
 	void Update();
 	void Render();
+	void MoveRight();
+	void MoveLeft();
+	void Fall();
 private:
 	int xpos;
 	int ypos;

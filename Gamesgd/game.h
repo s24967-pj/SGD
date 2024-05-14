@@ -18,8 +18,7 @@ public:
     void update();
     void render();
     void clean();
-
-
+    
     static SDL_Renderer *renderer;
 
 
@@ -32,6 +31,5 @@ private:
     int cnt = 0;
     bool isRunning;
     SDL_Window* window;
-
 };
 #endif // ! gra_hpp#pragma once

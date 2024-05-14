@@ -14,6 +14,8 @@ int main(int argc, const char* argv[])
     game = new Game();
     game->init("BirchEnginde", 800, 640, false);
 
+   
+
     while (game->running()) 
     {
         frameStart = SDL_GetTicks();
