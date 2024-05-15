@@ -8,6 +8,7 @@
 SDL_Texture* playerTexture;
 SDL_Rect srcR, destR;
 Object* hamster;
+Object* pizza;
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -43,8 +44,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
-    hamster = new Object("assets/hamster.png", renderer, 0, 586);
- 
+    hamster = new Object("assets/hamster.png", renderer, 0, 484);
+    pizza = new Object("assets/pizza.png", renderer, 0, 0);
     map = new Map();
 }
 
@@ -67,17 +68,19 @@ void Game::handleEvents()
     {
         hamster->MoveRight();
     }
-    else if (keystates[SDL_SCANCODE_LEFT])
+    else if (keystates[SDL_SCANCODE_W])
     {
-        hamster->MoveLeft();
+        hamster->Jump();
     }
 }
 
 void Game::update()
 {
     hamster->Update();
-   
+    pizza->UpdatePizza();
+    pizza->Fall();
 }
+
 
 void Game::render()
 {
@@ -85,6 +88,7 @@ void Game::render()
     //dodajemy tekstury, wyzsze background, nizsze blizej
     map->DrawMap();
     hamster->Render();
+    pizza->Render();
     SDL_RenderPresent(renderer);
 }
 

@@ -8,10 +8,14 @@ public:
 	~Object();
 
 	void Update();
+	void UpdatePizza();
 	void Render();
 	void MoveRight();
 	void MoveLeft();
 	void Fall();
+	void Jump();
+	bool CollisionWithGround();
+
 private:
 	int xpos;
 	int ypos;
@@ -19,4 +23,8 @@ private:
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
 	SDL_Renderer* renderer;
+
+	void Draw();
 };
+
+
