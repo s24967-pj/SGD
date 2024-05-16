@@ -16,7 +16,6 @@ public:
     void init(const char* title, int width, int height, bool fullscreen);
     void handleEvents();
     void update();
-    void update2();
     void render();
     void clean();
     
@@ -28,9 +27,13 @@ public:
         return isRunning; 
     }
 
+    int index = 0;
+
 private:
-    int cnt = 0;
+    
     bool isRunning;
     SDL_Window* window;
+
+    void GameReset();
 };
 #endif // ! gra_hpp#pragma once

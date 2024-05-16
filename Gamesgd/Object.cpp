@@ -7,10 +7,17 @@ bool isOnTheGround = true;
 const int hamsterybottom = 484;
 const int stopedos = 0;
 
-Object::Object(const char* texturesheet, SDL_Renderer* rend, int x, int y)
+Object::Object(const char* texturesheet[2], SDL_Renderer* rend, int x, int y)
 {
 	renderer = rend;
-	objTexture = TextureControl::LoadTexture(texturesheet);
+
+	for (int i = 0; i < 2; i++)
+	{
+		if (texturesheet[i] != 0)
+		{
+			objTexture[i] = TextureControl::LoadTexture(texturesheet[i]);
+		}
+	}
 	
 	xpos = x;
 	ypos = y;
@@ -70,9 +77,9 @@ void Object::DrawBush()
 
 
 
-void Object::Render()
+void Object::Render(int texture)
 {
-	SDL_RenderCopy(renderer, objTexture, &srcRect, &destRect);
+	SDL_RenderCopy(renderer, objTexture[texture], &srcRect, &destRect);
 }
 
 void Object::MoveRight()
@@ -89,8 +96,8 @@ void Object::MoveLeft()
 		xpos = 900;
 	}
 
-
 }
+
 
 void Object::Fall()
 {
@@ -116,10 +123,17 @@ int Object::GetY() {
 	return ypos;
 }
 
-void Object::Stop() {
+void Object::ResetBush() {
 	
-	xpos += 5;
+	xpos = 800;
+	ypos = 464;
 	
+}
+
+void Object::ResetBird()
+{
+	xpos = 1200;
+	ypos = 412;
 }
 
 
