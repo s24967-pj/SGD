@@ -15,6 +15,9 @@ public:
 	void Jump();
 	void Draw();
 	void DrawBush();
+	int GetX();
+	int GetY();
+	void Stop();
 
 private:
 	int xpos;

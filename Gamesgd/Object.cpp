@@ -5,6 +5,7 @@ const int gravity = 5;
 bool isJumping = false;
 bool isOnTheGround = true;
 const int hamsterybottom = 484;
+const int stopedos = 0;
 
 Object::Object(const char* texturesheet, SDL_Renderer* rend, int x, int y)
 {
@@ -64,6 +65,7 @@ void Object::DrawBush()
 	destRect.y = ypos;
 	destRect.w = srcRect.w * 2;
 	destRect.h = srcRect.h * 2;
+
 }
 
 
@@ -86,6 +88,8 @@ void Object::MoveLeft()
 	{
 		xpos = 900;
 	}
+
+
 }
 
 void Object::Fall()
@@ -104,6 +108,19 @@ void Object::Jump()
 	
 }
 
+int Object::GetX()  {
+	return xpos;
+}
+
+int Object::GetY() {
+	return ypos;
+}
+
+void Object::Stop() {
+	
+	xpos += 5;
+	
+}
 
 
 

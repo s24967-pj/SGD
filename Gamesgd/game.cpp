@@ -44,7 +44,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
-    hamster = new Object("assets/hamster.png", renderer, 0, 484);
+    hamster = new Object("assets/hamster.png", renderer, 96, 484);
     bush = new Object("assets/bush.png", renderer, 500, 464);
     map = new Map();
 }
@@ -76,10 +76,27 @@ void Game::handleEvents()
 
 void Game::update()
 {
+    
+    int collisionMargin = 20;
+
+    if (hamster->GetX() + collisionMargin >= bush->GetX() &&
+        hamster->GetX() <= bush->GetX() + collisionMargin)
+    {
+        if (hamster->GetY() >= 464 && hamster->GetY() <= 554)
+        {
+            std::cout << "Kolizja!" << std::endl;
+            bush->Stop();
+        }
+    }
+
+    
     hamster->UpdateHamster();
     
      bush->MoveLeft();    
      bush->DrawBush(); 
+    
+     
+    
 }
 
 
