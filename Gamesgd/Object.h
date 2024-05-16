@@ -7,14 +7,14 @@ public:
 	Object(const char* texturesheet, SDL_Renderer* rend, int x, int y);
 	~Object();
 
-	void Update();
-	void UpdatePizza();
+	void UpdateHamster();
 	void Render();
 	void MoveRight();
 	void MoveLeft();
 	void Fall();
 	void Jump();
-	bool CollisionWithGround();
+	void Draw();
+	void DrawBush();
 
 private:
 	int xpos;
@@ -24,7 +24,7 @@ private:
 	SDL_Rect srcRect, destRect;
 	SDL_Renderer* renderer;
 
-	void Draw();
+	
 };
 
 

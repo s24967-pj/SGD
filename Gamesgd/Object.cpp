@@ -15,7 +15,7 @@ Object::Object(const char* texturesheet, SDL_Renderer* rend, int x, int y)
 	ypos = y;
 }
 
-void Object::Update()
+void Object::UpdateHamster()
 {
 	if (isJumping)
 	{
@@ -32,7 +32,7 @@ void Object::Update()
 		isOnTheGround = true;
 	}
 
-	if (ypos <= hamsterybottom - 96)
+	if (ypos <= hamsterybottom - 96 * 1.5)
 	{
 		isJumping = false;
 	}
@@ -53,10 +53,10 @@ void Object::Draw()
 	destRect.h = srcRect.h * 2;
 }
 
-void Object::UpdatePizza()
+void Object::DrawBush()
 {
-	srcRect.h = 64;
-	srcRect.w = 64;
+	srcRect.h = 70;
+	srcRect.w = 70;
 	srcRect.x = 0;
 	srcRect.y = 0;
 
@@ -64,9 +64,8 @@ void Object::UpdatePizza()
 	destRect.y = ypos;
 	destRect.w = srcRect.w * 2;
 	destRect.h = srcRect.h * 2;
-
-
 }
+
 
 
 void Object::Render()
@@ -81,7 +80,12 @@ void Object::MoveRight()
 
 void Object::MoveLeft()
 {
-	xpos--;
+	xpos -= 5;
+	
+	if (xpos <= -100)
+	{
+		xpos = 900;
+	}
 }
 
 void Object::Fall()
