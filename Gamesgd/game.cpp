@@ -6,7 +6,8 @@
 
 bool gameOver = false;
 SDL_Texture* playerTexture;
-SDL_Rect srcR, destR;
+SDL_Texture* pressRtexture;
+SDL_Rect gameOverSrcR, gameOverDestR;
 Object* hamster;
 Object* bush;
 Object* bird;
@@ -46,13 +47,25 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
+
+    gameOverSrcR.h = 96;
+    gameOverSrcR.w = 96;
+    gameOverSrcR.x = 0;
+    gameOverSrcR.y = 0;
+
+    gameOverDestR.x = 300;
+    gameOverDestR.y = 200;
+    gameOverDestR.w = gameOverSrcR.w * 2;
+    gameOverDestR.h = gameOverSrcR.h * 2;
+
     const char* ptagi[] = { "assets/birdup.png", "assets/birddown.png", 0 };
-    const char* omiki[] = { "assets/hamster.png", 0, 0 };
+    const char* omiki[] = { "assets/hamster.png", "assets/hamstersquat.png", 0 };
     const char* brokuly[] = { "assets/bush.png", 0, 0 };
+    pressRtexture = TextureControl::LoadTexture("assets/pressR.png");
 
     hamster = new Object(omiki, renderer, 96, 464);
     bush = new Object(brokuly, renderer, 800, 464);
-    bird = new Object(ptagi, renderer, 1200, 412);
+    bird = new Object(ptagi, renderer, 1200, 390);
     map = new Map();
 }
 
@@ -71,15 +84,22 @@ void Game::handleEvents()
             break;
     }
 
-    if (keystates[SDL_SCANCODE_DOWN])
+
+    if (keystates[SDL_SCANCODE_DOWN] && hamster->isOnTheGround)
     {
-        hamster->MoveRight();
+        hamster->isAvoiding = true;
     }
-    else if (keystates[SDL_SCANCODE_UP])
+    else
+    {
+        hamster->isAvoiding = false;
+    }
+
+    if (keystates[SDL_SCANCODE_UP] && !hamster->isAvoiding)
     {
         hamster->Jump();
     }
-    else if (keystates[SDL_SCANCODE_R]) 
+
+    if (keystates[SDL_SCANCODE_R]) 
     {
         gameOver = false;
         GameReset();
@@ -97,6 +117,7 @@ void Game::GameReset()
 
 void Game::update()
 {
+
     if (gameOver)
     {
         return;
@@ -111,6 +132,18 @@ void Game::update()
         {
             gameOver = true;
             std::cout << "Kolizja!" << std::endl;
+        }
+    }
+
+    int birdCollisionMargin = 10;
+
+    if (hamster->GetX() + hamsterCollisionMargin >= bird->GetX() &&
+        hamster->GetX() <= bird->GetX() + birdCollisionMargin)
+    {
+        if (!hamster->isAvoiding)
+        {
+            gameOver = true;
+            std::cout << "Kolizja z ptakiem!" << std::endl;
         }
     }
  
@@ -134,7 +167,20 @@ void Game::render()
     map->DrawMap();
     bird->Render(index);
     bush->Render(0);
-    hamster->Render(0);
+    if (hamster->isAvoiding)
+    {      
+        hamster->Render(1);
+    }
+    else 
+    {   
+        hamster->Render(0);
+    }
+
+    if (gameOver)
+    {
+        TextureControl::Drawing(pressRtexture, gameOverSrcR, gameOverDestR);
+    }
+
     SDL_RenderPresent(renderer);
 }
 

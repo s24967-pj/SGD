@@ -7,6 +7,9 @@ public:
 	Object(const char* texturesheet[2], SDL_Renderer* rend, int x, int y);
 	~Object();
 
+	bool isAvoiding;
+	bool isOnTheGround;
+
 	void UpdateHamster();
 	void Render(int texture);
 	void MoveRight();

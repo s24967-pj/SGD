@@ -2,6 +2,7 @@
 #include "TextureControl.h"
 
 const int gravity = 5;
+bool isAvoiding = false;
 bool isJumping = false;
 bool isOnTheGround = true;
 const int hamsterybottom = 484;
