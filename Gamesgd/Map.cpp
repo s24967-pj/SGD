@@ -40,7 +40,7 @@ Map::Map()
 	src.h = 32;
 	dest.w = 32;
 	dest.h = 32;
-	dest.x = 0;
+	dest.x = 0; //poczatkowa lokacja
 	dest.y = 0;
 }
 

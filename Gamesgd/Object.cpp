@@ -43,10 +43,10 @@ void Object::UpdateHamster()
 
 	if (ypos <= hamsterybottom - 96 * 1.5)
 	{
-		isJumping = false;
+		isJumping = false; //limit skoku, jesli przekroczy wartosc szczytowa - zaczyna wracac na ziemie
 	}
 
-	Draw();
+	Draw(); //rysowanie z okreslonymi pozycjami
 }
 
 void Object::Draw()
@@ -88,7 +88,7 @@ void Object::MoveRight()
 	xpos++;
 }
 
-void Object::MoveLeft()
+void Object::MoveLeft() //pojawianie sie po zniknieciu za ekran i predkosc poruszania przeszkod
 {
 	xpos -= 5;
 	
@@ -105,7 +105,7 @@ void Object::Fall()
 	ypos++;
 }
 
-void Object::Jump()
+void Object::Jump() //wykonywane prz strzalce w gore a w update dodawana grawitacja
 {
 	if (isOnTheGround && !isJumping)
 	{
@@ -124,7 +124,8 @@ int Object::GetY() {
 	return ypos;
 }
 
-void Object::ResetBush() {
+void Object::ResetBush() //resetowanie pozycji po przegranej
+{
 	
 	xpos = 800;
 	ypos = 464;

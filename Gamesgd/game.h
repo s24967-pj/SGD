@@ -1,4 +1,4 @@
-#ifndef  game_h
+#ifndef  game_h //zabezpieczenie aby klasa nie kompilowala sie wiele razy
 #define game_h
 
 #include <SDL.h>
@@ -27,7 +27,7 @@ public:
         return isRunning; 
     }
 
-    int index = 0;
+    int index = 0; //uzywany do zmiany kostiumow
 
 private:
     

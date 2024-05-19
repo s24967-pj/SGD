@@ -25,20 +25,15 @@ Game::~Game()
 void Game::init(const char* title, int width, int height, bool fullscreen)
 {
     int flags = 0;
-    if (fullscreen)
-    {
-        flags = SDL_WINDOW_FULLSCREEN;
-
-    }
 
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
         renderer = SDL_CreateRenderer(window, -1, 0);
-        if (renderer)
+        /*if (renderer)
         {
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        }
+        }*/
 
         isRunning = true;
     }
@@ -47,7 +42,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
         isRunning = false;
     }
 
-
+    //parametry obrazka game over "press r"
     gameOverSrcR.h = 96;
     gameOverSrcR.w = 96;
     gameOverSrcR.x = 0;
@@ -74,9 +69,10 @@ void Game::handleEvents()
     SDL_Event event;
     const Uint8* keystates = SDL_GetKeyboardState(NULL);
     SDL_PollEvent(&event);
+
     switch (event.type) 
     {
-        case SDL_QUIT:
+        case SDL_QUIT:  //zamkniecie okna
             isRunning = false;
             break;
 
@@ -122,13 +118,13 @@ void Game::update()
     {
         return;
     }
-    int hamsterCollisionMargin = 110;
+    int hamsterCollisionMargin = 110; //szerokosc chomika dodana do x po lewej
     int bushCollisionMargin = 65;
 
     if (hamster->GetX() + hamsterCollisionMargin >= bush->GetX() &&
-        hamster->GetX() <= bush->GetX() + bushCollisionMargin)
+        hamster->GetX() <= bush->GetX() + bushCollisionMargin) //sprawdzanie przodu i tylu chomika do zderzenia
     {
-        if (hamster->GetY() >= 464 && hamster->GetY() <= 534)
+        if (hamster->GetY() >= 464 && hamster->GetY() <= 534) //wysokosc krzaka do zderzenia przy skoku
         {
             gameOver = true;
             std::cout << "Kolizja!" << std::endl;
